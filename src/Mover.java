@@ -14,18 +14,16 @@ public class Mover extends JFrame implements KeyListener{
 
     //private Container contentPane = this.getContentPane();
 
-    public Mover()
-    {
-        setSize(750, 750);
-        setTitle("Mover");
-        addKeyListener(this);
-
+    public Mover() {
+        this.setSize(750, 750);
+        this.setTitle("Mover");
+        this.addKeyListener(this);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public void init()
-    {
-        add(drawingArea);
-        setVisible(true);
+    public void init() {
+        this.add(drawingArea);
+        this.setVisible(true);
     }
 
     @Override
@@ -42,19 +40,21 @@ public class Mover extends JFrame implements KeyListener{
     @Override
     public void keyReleased(KeyEvent e) {
 
-        if(e.getKeyCode() == 39 ){
+        if(e.getKeyCode() == 68 ){
             drawingArea.moveRight();
             System.out.println("key released");
-        }
-        else if(e.getKeyCode() == 37 )
-        {
+        } else if(e.getKeyCode() == 65 ) {
             drawingArea.moveLeft();
+        } else if(e.getKeyCode() == 87){
+            drawingArea.moveUp();
+        } else if(e.getKeyCode() == 83){
+            drawingArea.moveDown();
         }
     }
 
     class CanvasPanel extends JPanel{
 
-        private int xPos, yPos, xStep;
+        private int xPos, yPos, xStep, yStep;
 
 
         public CanvasPanel()
@@ -62,7 +62,7 @@ public class Mover extends JFrame implements KeyListener{
             xPos = 30;
             yPos = 20;
             xStep = 50;
-
+            yStep = 50;
         }
 
         @Override
@@ -84,24 +84,29 @@ public class Mover extends JFrame implements KeyListener{
 
             g2d.setRenderingHints(rh);
 
-            g2d.fillRect(xPos,yPos,50,50);
+            g2d.fillOval(xPos,yPos,50,50);
 
         }
 
-        public void moveLeft()
-        {
+        public void moveLeft() {
             xPos =  xPos - xStep;
-
             repaint();
         }
 
-        public void moveRight()
-        {
+        public void moveRight() {
             xPos =  xPos + xStep;
-
             repaint();
         }
 
+        public void moveUp(){
+            yPos = yPos - yStep;
+            repaint();
+        }
+
+        public void moveDown(){
+            yPos = yPos + yStep;
+            repaint();
+        }
 
     }
 
